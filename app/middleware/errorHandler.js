@@ -33,7 +33,11 @@ module.exports = () => {
       await next();
 
       const requestLog = ctx.helper.requestLog();
-      console.log(requestLog);
+      // console.log(requestLog);
+
+      const { _id: reqId } = await ctx.service.reqLog.create(requestLog);
+
+      ctx.body.reqId = reqId;
 
     } catch (error) {
       const { app } = ctx;
@@ -53,7 +57,11 @@ module.exports = () => {
       const requestLog = ctx.helper.requestLog({
         error: error.stack,
       });
-      console.log(requestLog);
+      // console.log(requestLog);
+
+      const { _id: reqId } = await ctx.service.reqLog.create(requestLog);
+
+      ctx.body.reqId = reqId;
 
       console.log('=============================');
 
