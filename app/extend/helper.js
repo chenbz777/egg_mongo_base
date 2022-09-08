@@ -39,7 +39,7 @@ module.exports = {
       ua: ctx.request.header['user-agent'],
       tokenValue: ctx.tokenValue || '',
       distinctId: ctx.tokenValue ? ctx.tokenValue.unionid : '',
-      ip: ctx.request.header['x-real-ip'],
+      ip: ctx.request.header['x-real-ip'] || '',
       ips,
       reqUrl: ctx.request.header.origin || '',
       url: ctx.request.url,
