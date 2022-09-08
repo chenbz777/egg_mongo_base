@@ -13,8 +13,9 @@ module.exports = () => {
     /**
      * 先说一下这里逻辑
      * 1、判断请求url是否为白名单
-     * 2、获取token
-     * 3、验证 token
+     * 2、判断请求ip是否为白名单
+     * 3、获取token
+     * 4、验证 token
      */
 
     // 1、判断请求url是否为白名单
@@ -23,14 +24,20 @@ module.exports = () => {
     //   throw new Error('illegal_url');
     // }
 
-    // 2、判断是否携带 token
+    // 2、判断请求ip是否为白名单
+    // const ip = ctx.request.header['x-real-ip'] || '';
+    // if (ip !== '127.0.0.1') {
+    //   throw new Error('illegal_ip');
+    // }
+
+    // 3、判断是否携带 token
     const token = ctx.get('Authorization');
     if (!token) {
       // 抛出"非法请求"异常
       throw new Error('illegal_request');
     }
 
-    // 3、验证 token
+    // 4、验证 token
     ctx.tokenValue = await ctx.service.token.getValue(token);
 
     await next();
