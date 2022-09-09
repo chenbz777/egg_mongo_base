@@ -28,6 +28,5 @@ npm run dev
 | 插件名称          | 描述             |
 | ----------------- | ---------------- |
 | egg-cors          | 【插件】配置跨域 |
-| egg-validate-plus | 【插件】校验参数 |
 | egg-router-group  | 【插件】路由分组 |
 

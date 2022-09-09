@@ -16,12 +16,6 @@ module.exports = () => {
 
     try {
 
-      // 参数校验错误
-      if (ctx.status === 400) {
-        const { error } = ctx.body;
-        ctx.result.info({ msg: 'parameter_verification_error', data: error });
-      }
-
       // 访问路径错误
       if (ctx.status === 404) {
         ctx.result.info({ msg: '404' });
@@ -31,6 +25,12 @@ module.exports = () => {
       ctx.startReq = Date.now();
 
       await next();
+
+      // 参数校验错误
+      if (ctx.status === 400) {
+        const { validateError } = ctx.body;
+        ctx.result.info({ msg: 'parameter_verification_error', data: validateError });
+      }
 
       const requestLog = ctx.helper.requestLog();
       // console.log(requestLog);

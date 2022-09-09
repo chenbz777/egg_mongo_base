@@ -43,6 +43,11 @@ module.exports = appInfo => {
     secret: '123456', // 自定义 token 的加密条件字符串
   };
 
+  config.validate = {
+    convert: true,
+    widelyUndefined: true,
+  };
+
   // 【插件】mongo_db
   config.mongoose = {
     // 数据库没有密码

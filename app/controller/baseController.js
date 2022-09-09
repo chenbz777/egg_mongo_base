@@ -29,11 +29,7 @@ class BaseController extends Controller {
      * @date 2022/4/7
      */
   get ruleUpdate() {
-    return {
-      _id: [
-        { required: true },
-      ],
-    };
+    return {};
   }
 
   /**
@@ -43,9 +39,10 @@ class BaseController extends Controller {
      */
   get ruleDelete() {
     return {
-      _id: [
-        { required: true },
-      ],
+      _id: {
+        type: 'string',
+        required: true,
+      },
     };
   }
 
@@ -97,12 +94,18 @@ class BaseController extends Controller {
      * @date 2022/4/7
      */
   async create() {
-    const { ctx } = this;
+    const { ctx, app } = this;
 
     const data = ctx.request.body;
 
-    // const validateResult = await this.ctx.validate(this.ruleCreate, data);
-    // if (!validateResult) return false;
+    const validateError = app.validator.validate(this.ruleCreate, data);
+    if (validateError) {
+      // 参数校验错误
+      ctx.status = 400;
+      ctx.body = { validateError };
+
+      return false;
+    }
 
     const result = await this.serviceName.create(data);
 
@@ -115,13 +118,20 @@ class BaseController extends Controller {
      * @date 2022/4/7
      */
   async update() {
-    const { ctx } = this;
+    const { ctx, app } = this;
 
     const { id: _id } = ctx.params;
     const data = ctx.request.body;
 
-    // const validateResult = await this.ctx.validate(this.ruleUpdate, { _id });
-    // if (!validateResult) return false;
+    const validateError = app.validator.validate(this.ruleUpdate, data);
+    if (validateError) {
+      // 参数校验错误
+      ctx.status = 400;
+      ctx.body = { validateError };
+
+      return false;
+    }
+
 
     const result = await this.serviceName.update({ _id }, data);
 
@@ -134,12 +144,19 @@ class BaseController extends Controller {
      * @date 2022/4/7
      */
   async destroy() {
-    const { ctx } = this;
+    const { ctx, app } = this;
 
     const { id: _id } = ctx.params;
 
-    // const validateResult = await this.ctx.validate(this.ruleDelete, { _id });
-    // if (!validateResult) return false;
+    const validateError = app.validator.validate(this.ruleDelete, { _id });
+    if (validateError) {
+      // 参数校验错误
+      ctx.status = 400;
+      ctx.body = { validateError };
+
+      return false;
+    }
+
 
     const result = await this.serviceName.delete({ _id });
 
