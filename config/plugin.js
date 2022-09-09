@@ -6,6 +6,11 @@ module.exports = {
     enable: true,
     package: 'egg-cors',
   },
+  // egg-jwt插件
+  jwt: {
+    enable: true,
+    package: 'egg-jwt',
+  },
   // 路由分组插件
   routerGroup: {
     enable: true,

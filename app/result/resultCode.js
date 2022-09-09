@@ -44,11 +44,11 @@ const resultCode = {
     code: 7103,
     msg: '用户不存在',
   },
-  error_password: {
+  invalid_password: {
     code: 7104,
     msg: '密码错误',
   },
-  user_disable: {
+  invalid_status: {
     code: 7105,
     msg: '用户已被禁用',
   },
