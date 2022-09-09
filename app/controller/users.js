@@ -9,7 +9,7 @@ class UserController extends baseController {
   }
 
   async login() {
-    const { ctx } = this;
+    const { ctx, app } = this;
 
     const data = ctx.request.body;
 
@@ -17,14 +17,16 @@ class UserController extends baseController {
       user: {
         type: 'string',
         required: true,
+        desc: '账号',
       },
       password: {
         type: 'string',
         required: true,
+        desc: '密码',
       },
     };
 
-    const validateError = this.app.validator.validate(rules, data);
+    const validateError = app.validator.validate(rules, data);
     if (validateError) {
       // 参数校验错误
       ctx.status = 400;
