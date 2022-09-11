@@ -48,7 +48,7 @@ class MongoService extends Service {
     return model.updateMany(dbWhere, data);
   }
 
-  async findAll(model, dbWhere, dbConfig = {}) {
+  async findAll(model = {}, dbWhere = {}, dbConfig = {}) {
     const { ctx: { helper: { utils } } } = this;
 
     const pipeline = [];
@@ -154,7 +154,7 @@ class MongoService extends Service {
     return { list, total };
   }
 
-  async find(model, dbWhere, dbConfig = {}) {
+  async find(model = {}, dbWhere = {}, dbConfig = {}) {
 
     const page = Number(dbConfig.page) || 1;
     const pageSize = Number(dbConfig.pageSize) || 10;
@@ -171,7 +171,7 @@ class MongoService extends Service {
     return { list, total, page, pageSize, totalPages };
   }
 
-  async findOne(model, dbWhere, dbConfig = {}) {
+  async findOne(model = {}, dbWhere = {}, dbConfig = {}) {
 
     dbConfig.limit = 1;
 

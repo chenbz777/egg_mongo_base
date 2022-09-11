@@ -29,7 +29,12 @@ class BaseController extends Controller {
      * @date 2022/4/7
      */
   get ruleUpdate() {
-    return {};
+    return {
+      _id: {
+        type: 'string',
+        required: true,
+      },
+    };
   }
 
   /**
@@ -123,7 +128,7 @@ class BaseController extends Controller {
     const { id: _id } = ctx.params;
     const data = ctx.request.body;
 
-    const validateError = app.validator.validate(this.ruleUpdate, data);
+    const validateError = app.validator.validate(this.ruleUpdate, { _id, ...data });
     if (validateError) {
       // 参数校验错误
       ctx.status = 400;
@@ -174,6 +179,16 @@ class BaseController extends Controller {
     const { where: dbWhere, config: dbConfig } = ctx.request.body;
 
     const result = await this.serviceName.find(dbWhere, dbConfig);
+
+    ctx.result.success(result);
+  }
+
+  async findAll() {
+    const { ctx } = this;
+
+    const { where: dbWhere, config: dbConfig } = ctx.request.body;
+
+    const result = await this.serviceName.findAll(dbWhere, dbConfig);
 
     ctx.result.success(result);
   }
