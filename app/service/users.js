@@ -4,7 +4,7 @@ const baseService = require('./baseService');
 
 const bcrypt = require('bcrypt');
 
-class UserService extends baseService {
+class UsersService extends baseService {
   get model() {
     return this.ctx.model.Users;
   }
@@ -52,4 +52,4 @@ class UserService extends baseService {
 
 }
 
-module.exports = UserService;
+module.exports = UsersService;

@@ -2,7 +2,7 @@
 
 const baseController = require('./baseController');
 
-class UserController extends baseController {
+class UsersController extends baseController {
   get serviceName() {
 
     return this.service.users;
@@ -41,4 +41,4 @@ class UserController extends baseController {
   }
 }
 
-module.exports = UserController;
+module.exports = UsersController;
