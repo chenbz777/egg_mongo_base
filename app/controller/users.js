@@ -14,7 +14,7 @@ class UserController extends baseController {
     const data = ctx.request.body;
 
     const rules = {
-      user: {
+      username: {
         type: 'string',
         required: true,
         desc: '账号',
@@ -35,9 +35,9 @@ class UserController extends baseController {
       return false;
     }
 
-    const { user, password } = data;
+    const { username, password } = data;
 
-    ctx.result.success(await this.serviceName.login({ user, password }));
+    ctx.result.success(await this.serviceName.login({ username, password }));
   }
 }
 

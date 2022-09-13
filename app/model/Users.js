@@ -8,11 +8,11 @@ module.exports = app => {
   // const ObjectId = mongoose.Schema.Types.ObjectId;
 
   const ModelSchema = new Schema({
-    name: {
+    nickname: {
       type: String,
       required: true,
     },
-    user: {
+    username: {
       type: String,
       required: true,
     },
@@ -24,6 +24,10 @@ module.exports = app => {
       type: Boolean,
       required: false,
       default: true,
+    },
+    avatar: {
+      type: String,
+      required: true,
     },
     created_at: {
       type: Date,

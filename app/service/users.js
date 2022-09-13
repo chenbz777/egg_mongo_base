@@ -9,25 +9,25 @@ class UserService extends baseService {
     return this.ctx.model.Users;
   }
 
-  async create({ name, user, password, status }) {
+  async create({ nickname, username, password, status, avatar }) {
 
     // 加密
     const salt = bcrypt.genSaltSync(10);
     // 对明文加密
     const encryption_password = bcrypt.hashSync(password, salt);
 
-    return this.service.mongoService.create(this.model, { name, user, password: encryption_password, status });
+    return this.service.mongoService.create(this.model, { nickname, username, password: encryption_password, status, avatar });
   }
 
-  async login({ user, password }) {
+  async login({ username, password }) {
 
-    const userData = await this.findOne({ user });
+    const userInfo = await this.findOne({ username });
 
-    if (!userData) {
+    if (!userInfo) {
       throw new Error('no_user');
     }
 
-    const { password: encryption_password, status } = userData;
+    const { password: encryption_password, status } = userInfo;
 
     // 验证
     // encryption_password 是数据库加密后的密码
@@ -42,12 +42,12 @@ class UserService extends baseService {
       throw new Error('invalid_status');
     }
 
-    const token = await this.service.token.create({ _id: userData._id });
+    const token = await this.service.token.create({ _id: userInfo._id });
 
-    delete userData.password;
-    delete userData._id;
+    delete userInfo.password;
+    delete userInfo._id;
 
-    return { token, userData };
+    return { token, userInfo };
   }
 
 }
